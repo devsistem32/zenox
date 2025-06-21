@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenox v5.0 - Advanced Cybersecurity Suite</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Paleta de cores cyberpunk */
+      --primary-cyan: #00f0ff;
+      --primary-magenta: #ff00ff;
+      --primary-green: #00ff88;
+      --accent-orange: #ff6600;
+      --bg-deep: #0a0a0a;
+      --bg-dark: #1a1a1a;
+      --bg-medium: #2a2a2a;
+      --bg-light: #3a3a3a;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+      --text-muted: #888888;
+      
+      /* Sombras neon */
+      --shadow-cyan: 0 0 10px var(--primary-cyan);
+      --shadow-magenta: 0 0 10px var(--primary-magenta);
+      --shadow-green: 0 0 10px var(--primary-green);
+      --shadow-orange: 0 0 10px var(--accent-orange);
+      
+      /* Transições */
+      --transition-fast: 0.2s ease;
+      --transition-medium: 0.3s ease;
+      --transition-slow: 0.5s ease;
+      
+      /* Tamanho de fonte base */
+      --font-size-base: 1rem;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-dark) 100%);
+      color: var(--text-primary);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: var(--font-size-base);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animação de fundo */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Header */
+    .cyber-header {
+      background: linear-gradient(90deg, var(--bg-dark) 0%, var(--bg-medium) 50%, var(--bg-dark) 100%);
+      border-bottom: 2px solid var(--primary-cyan);
+      box-shadow: var(--shadow-cyan), 0 0 20px var(--primary-magenta);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .cyber-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary-cyan);
+      text-shadow: var(--shadow-cyan);
+      text-decoration: none;
+      transition: var(--transition-medium);
+    }
+
+    .cyber-brand:hover {
+      color: var(--primary-magenta);
+      text-shadow: var(--shadow-magenta);
+      transform: scale(1.05);
+    }
+
+    .system-status {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-medium);
+      border: 1px solid var(--primary-green);
+      border-radius: 20px;
+      box-shadow: var(--shadow-green);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary-green);
+      box-shadow: var(--shadow-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Header Controls */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-btn {
+      background: var(--bg-medium);
+      border: 1px solid var(--primary-cyan);
+      color: var(--primary-cyan);
+      padding: 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      font-size: 1rem;
+    }
+
+    .header-btn:hover {
+      background: var(--bg-light);
+      box-shadow: var(--shadow-cyan);
+      transform: translateY(-2px);
+    }
+
+    /* Main Container */
+    .main-container {
+      padding: 2rem 0;
+      min-height: calc(100vh - 120px);
+    }
+
+    /* Search Bar */
+    .search-container {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .cyber-search {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      background: var(--bg-medium);
+      border: 2px solid var(--primary-cyan);
+      border-radius: 25px;
+      color: var(--text-primary);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-cyan);
+      transition: var(--transition-medium);
+    }
+
+    .cyber-search:focus {
+      outline: none;
+      border-color: var(--primary-magenta);
+      box-shadow: var(--shadow-magenta);
+      background: var(--bg-light);
+    }
+
+    .cyber-search::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-cyan);
+      font-size: 1.2rem;
+    }
+
+    .search-suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-medium);
+      border: 1px solid var(--primary-cyan);
+      border-radius: 0 0 15px 15px;
+      box-shadow: var(--shadow-cyan);
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      border-bottom: 1px solid var(--bg-light);
+    }
+
+    .suggestion-item:hover {
+      background: var(--bg-light);
+      color: var(--primary-cyan);
+    }
+
+    /* Tools Sidebar */
+    .tools-sidebar {
+      background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+      border: 1px solid var(--primary-cyan);
+      border-radius: 15px;
+      box-shadow: var(--shadow-cyan);
+      height: fit-content;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: sticky;
+      top: 120px;
+    }
+
+    .tools-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--primary-cyan);
+      background: var(--bg-medium);
+      border-radius: 15px 15px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tools-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-magenta);
+      text-shadow: var(--shadow-magenta);
+      margin: 0;
+    }
+
+    .tools-count {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .tools-filter {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--primary-green);
+      color: var(--primary-green);
+      padding: 0.25rem 0.5rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--primary-green);
+      color: var(--bg-dark);
+      box-shadow: var(--shadow-green);
+    }
+
+    .category-section {
+      padding: 1rem;
+      border-bottom: 1px solid var(--bg-light);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      background: var(--bg-light);
+      border: 1px solid var(--primary-green);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: var(--transition-medium);
+      margin-bottom: 1rem;
+    }
+
+    .category-header:hover {
+      background: var(--bg-medium);
+      box-shadow: var(--shadow-green);
+      transform: translateY(-2px);
+    }
+
+    .category-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary-green);
+      margin: 0;
+    }
+
+    .category-icon {
+      font-size: 1.2rem;
+      color: var(--primary-green);
+    }
+
+    .tools-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .tool-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg-dark);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: var(--transition-medium);
+      position: relative;
+    }
+
+    .tool-item:hover {
+      background: var(--bg-medium);
+      border-color: var(--primary-cyan);
+      box-shadow: var(--shadow-cyan);
+      transform: translateX(5px);
+    }
+
+    .tool-item.active {
+      background: var(--bg-medium);
+      border-color: var(--primary-magenta);
+      box-shadow: var(--shadow-magenta);
+    }
+
+    .tool-item.favorite {
+      border-left: 3px solid var(--accent-orange);
+    }
+
+    .tool-icon {
+      font-size: 1.1rem;
+      color: var(--primary-cyan);
+      width: 20px;
+      text-align: center;
+    }
+
+    .tool-name {
+      flex: 1;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .tool-actions {
+      display: flex;
+      gap: 0.5rem;
+      opacity: 0;
+      transition: var(--transition-fast);
+    }
+
+    .tool-item:hover .tool-actions {
+      opacity: 1;
+    }
+
+    .tool-favorite,
+    .tool-info {
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      padding: 0.25rem;
+      border-radius: 4px;
+    }
+
+    .tool-favorite:hover,
+    .tool-favorite.active {
+      color: var(--accent-orange);
+      text-shadow: var(--shadow-orange);
+      background: rgba(255, 102, 0, 0.1);
+    }
+
+    .tool-info:hover {
+      color: var(--primary-cyan);
+      text-shadow: var(--shadow-cyan);
+      background: rgba(0, 240, 255, 0.1);
+    }
+
+    /* Terminal Area */
+    .terminal-container {
+      background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+      border: 1px solid var(--primary-cyan);
+      border-radius: 15px;
+      box-shadow: var(--shadow-cyan);
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background: var(--bg-medium);
+      border-bottom: 1px solid var(--primary-cyan);
+      border-radius: 15px 15px 0 0;
+    }
+
+    .terminal-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-green);
+      text-shadow: var(--shadow-green);
+      margin: 0;
+      flex: 1;
+    }
+
+    .terminal-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .terminal-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .btn-close { background: #ff5f56; }
+    .btn-minimize { background: #ffbd2e; }
+    .btn-maximize { background: #27ca3f; }
+
+    .terminal-btn:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 5px currentColor;
+    }
+
+    .terminal-tabs {
+      display: flex;
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--bg-light);
+      overflow-x: auto;
+    }
+
+    .terminal-tab {
+      padding: 0.5rem 1rem;
+      background: var(--bg-dark);
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+      border-right: 1px solid var(--bg-light);
+    }
+
+    .terminal-tab.active {
+      background: var(--bg-medium);
+      color: var(--primary-green);
+      border-bottom: 2px solid var(--primary-green);
+    }
+
+    .terminal-tab:hover {
+      background: var(--bg-medium);
+      color: var(--text-primary);
+    }
+
+    .terminal-body {
+      flex: 1;
+      padding: 1.5rem;
+      background: var(--bg-deep);
+      border-radius: 0 0 15px 15px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      position: relative;
+    }
+
+    .terminal-output {
+      color: var(--primary-green);
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      min-height: 100%;
+    }
+
+    .prompt-line {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .prompt-prefix {
+      color: var(--primary-cyan);
+      font-weight: bold;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 20px;
+      background: var(--primary-green);
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .loading-spinner {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--primary-cyan);
+    }
+
+    .spinner-icon {
+      font-size: 2rem;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Tool Info Modal */
+    .tool-info-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .tool-info-content {
+      background: var(--bg-medium);
+      border: 1px solid var(--primary-cyan);
+      border-radius: 15px;
+      box-shadow: var(--shadow-cyan);
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .tool-info-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--bg-light);
+    }
+
+    .tool-info-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: var(--primary-cyan);
+      margin: 0;
+    }
+
+    .tool-info-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .tool-info-close:hover {
+      color: var(--primary-magenta);
+    }
+
+    .tool-info-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-info-section h4 {
+      color: var(--primary-green);
+      margin-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .tool-info-section p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .parameter-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .parameter-item {
+      background: var(--bg-dark);
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      border-left: 3px solid var(--primary-cyan);
+    }
+
+    .parameter-name {
+      color: var(--primary-cyan);
+      font-weight: bold;
+      font-family: 'Courier New', monospace;
+    }
+
+    .parameter-desc {
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* History Panel */
+    .history-panel {
+      position: fixed;
+      right: -400px;
+      top: 0;
+      width: 400px;
+      height: 100vh;
+      background: var(--bg-medium);
+      border-left: 1px solid var(--primary-cyan);
+      box-shadow: var(--shadow-cyan);
+      transition: var(--transition-medium);
+      z-index: 9999;
+      overflow-y: auto;
+    }
+
+    .history-panel.open {
+      right: 0;
+    }
+
+    .history-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--bg-light);
+      background: var(--bg-dark);
+    }
+
+    .history-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary-cyan);
+      margin: 0;
+    }
+
+    .history-list {
+      padding: 1rem;
+    }
+
+    .history-item {
+      background: var(--bg-dark);
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      border-left: 3px solid var(--primary-green);
+    }
+
+    .history-item:hover {
+      background: var(--bg-light);
+      transform: translateX(5px);
+    }
+
+    .history-command {
+      font-family: 'Courier New', monospace;
+      color: var(--primary-green);
+      margin-bottom: 0.25rem;
+    }
+
+    .history-time {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Scrollbar customization */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-cyan);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-magenta);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .cyber-brand {
+        font-size: 1.5rem;
+      }
+      
+      .system-status {
+        display: none;
+      }
+      
+      .header-controls {
+        gap: 0.5rem;
+      }
+      
+      .main-container {
+        padding: 1rem 0;
+      }
+      
+      .tools-sidebar {
+        margin-bottom: 2rem;
+        position: static;
+        max-height: none;
+      }
+      
+      .terminal-container {
+        height: 60vh;
+      }
+
+      .history-panel {
+        width: 100%;
+        right: -100%;
+      }
+    }
+
+    /* Utility Classes */
+    .text-glow-cyan { text-shadow: var(--shadow-cyan); }
+    .text-glow-magenta { text-shadow: var(--shadow-magenta); }
+    .text-glow-green { text-shadow: var(--shadow-green); }
+    .text-glow-orange { text-shadow: var(--shadow-orange); }
+
+    .border-glow-cyan { box-shadow: var(--shadow-cyan); }
+    .border-glow-magenta { box-shadow: var(--shadow-magenta); }
+    .border-glow-green { box-shadow: var(--shadow-green); }
+    .border-glow-orange { box-shadow: var(--shadow-orange); }
+
+    /* Animations */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.5s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.5s ease-out;
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Notification Styles */
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="cyber-header">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <a href="#" class="cyber-brand text-decoration-none">
+            <i class="fas fa-shield-alt me-2"></i>
+            Zenox v5.0
+          </a>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="system-status">
+            <div class="status-indicator">
+              <div class="status-dot"></div>
+              <span>Sistema Online</span>
+            </div>
+            <div class="status-indicator">
+              <i class="fas fa-cpu me-1"></i>
+              <span id="cpuUsage">CPU: 23%</span>
+            </div>
+            <div class="status-indicator">
+              <i class="fas fa-memory me-1"></i>
+              <span id="ramUsage">RAM: 45%</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="header-controls">
+            <button class="header-btn" id="historyBtn" title="Histórico de Comandos">
+              <i class="fas fa-history"></i>
+            </button>
+            <button class="header-btn" id="settingsBtn" title="Configurações">
+              <i class="fas fa-cog"></i>
+            </button>
+            <button class="header-btn" id="helpBtn" title="Ajuda">
+              <i class="fas fa-question-circle"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container-fluid main-container">
+    <!-- Search Bar -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="search-container fade-in">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="cyber-search" placeholder="Pesquisar ferramentas... (Ex: nmap, wireshark, metasploit)" id="toolSearch">
+          <div class="search-suggestions" id="searchSuggestions"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Tools Sidebar -->
+      <div class="col-lg-4 col-md-5">
+        <div class="tools-sidebar slide-in-left">
+          <div class="tools-header">
+            <div>
+              <h2 class="tools-title">
+                <i class="fas fa-tools me-2"></i>
+                Arsenal Cyber
+              </h2>
+              <div class="tools-count">
+                <span id="toolsCount">42</span> ferramentas disponíveis
+              </div>
+            </div>
+            <div class="tools-filter">
+              <button class="filter-btn active" data-filter="all">Todas</button>
+              <button class="filter-btn" data-filter="favorites">Favoritas</button>
+            </div>
+          </div>
+
+          <div class="category-section">
+            <div class="category-header" data-bs-toggle="collapse" data-bs-target="#osint-tools">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-search category-icon me-2"></i>
+                <h3 class="category-title">OSINT & Reconhecimento</h3>
+              </div>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <ul class="tools-list collapse show" id="osint-tools">
+              <li class="tool-item" data-tool="spiderfoot">
+                <i class="fas fa-spider tool-icon"></i>
+                <span class="tool-name">SpiderFoot</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="theharvester">
+                <i class="fas fa-seedling tool-icon"></i>
+                <span class="tool-name">TheHarvester</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="sherlock">
+                <i class="fas fa-user-secret tool-icon"></i>
+                <span class="tool-name">Sherlock</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="shodan">
+                <i class="fas fa-satellite-dish tool-icon"></i>
+                <span class="tool-name">Shodan CLI</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="recon-ng">
+                <i class="fas fa-cogs tool-icon"></i>
+                <span class="tool-name">Recon-ng</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <div class="category-header" data-bs-toggle="collapse" data-bs-target="#network-tools">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-network-wired category-icon me-2"></i>
+                <h3 class="category-title">Análise de Rede</h3>
+              </div>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <ul class="tools-list collapse" id="network-tools">
+              <li class="tool-item" data-tool="nmap">
+                <i class="fas fa-radar tool-icon"></i>
+                <span class="tool-name">Nmap</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="wireshark">
+                <i class="fas fa-network-wired tool-icon"></i>
+                <span class="tool-name">Wireshark</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="masscan">
+                <i class="fas fa-tachometer-alt tool-icon"></i>
+                <span class="tool-name">Masscan</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="netcat">
+                <i class="fas fa-terminal tool-icon"></i>
+                <span class="tool-name">Netcat</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <div class="category-header" data-bs-toggle="collapse" data-bs-target="#exploit-tools">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-bomb category-icon me-2"></i>
+                <h3 class="category-title">Exploração</h3>
+              </div>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <ul class="tools-list collapse" id="exploit-tools">
+              <li class="tool-item" data-tool="metasploit">
+                <i class="fas fa-unlock-alt tool-icon"></i>
+                <span class="tool-name">Metasploit</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="msfvenom">
+                <i class="fas fa-syringe tool-icon"></i>
+                <span class="tool-name">MSFvenom</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="sqlmap">
+                <i class="fas fa-database tool-icon"></i>
+                <span class="tool-name">SQLMap</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="burpsuite">
+                <i class="fas fa-bug tool-icon"></i>
+                <span class="tool-name">Burp Suite</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <div class="category-header" data-bs-toggle="collapse" data-bs-target="#password-tools">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-key category-icon me-2"></i>
+                <h3 class="category-title">Quebra de Senhas</h3>
+              </div>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <ul class="tools-list collapse" id="password-tools">
+              <li class="tool-item" data-tool="john">
+                <i class="fas fa-lock-open tool-icon"></i>
+                <span class="tool-name">John the Ripper</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="hashcat">
+                <i class="fas fa-gamepad tool-icon"></i>
+                <span class="tool-name">Hashcat</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="hydra">
+                <i class="fas fa-dragon tool-icon"></i>
+                <span class="tool-name">Hydra</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="medusa">
+                <i class="fas fa-eye tool-icon"></i>
+                <span class="tool-name">Medusa</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="category-section">
+            <div class="category-header" data-bs-toggle="collapse" data-bs-target="#forensic-tools">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-search-plus category-icon me-2"></i>
+                <h3 class="category-title">Forense Digital</h3>
+              </div>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <ul class="tools-list collapse" id="forensic-tools">
+              <li class="tool-item" data-tool="autopsy">
+                <i class="fas fa-microscope tool-icon"></i>
+                <span class="tool-name">Autopsy</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="volatility">
+                <i class="fas fa-memory tool-icon"></i>
+                <span class="tool-name">Volatility</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="binwalk">
+                <i class="fas fa-box-open tool-icon"></i>
+                <span class="tool-name">Binwalk</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+              <li class="tool-item" data-tool="exiftool">
+                <i class="fas fa-camera tool-icon"></i>
+                <span class="tool-name">ExifTool</span>
+                <div class="tool-actions">
+                  <i class="fas fa-star tool-favorite" title="Adicionar aos favoritos"></i>
+                  <i class="fas fa-info-circle tool-info" title="Informações da ferramenta"></i>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal Area -->
+      <div class="col-lg-8 col-md-7">
+        <div class="terminal-container slide-in-right">
+          <div class="terminal-header">
+            <h2 class="terminal-title">
+              <i class="fas fa-terminal me-2"></i>
+              <span id="terminalTitle">Terminal Cyber</span>
+            </h2>
+            <div class="terminal-controls">
+              <button class="terminal-btn btn-close" title="Fechar"></button>
+              <button class="terminal-btn btn-minimize" title="Minimizar"></button>
+              <button class="terminal-btn btn-maximize" title="Maximizar"></button>
+            </div>
+          </div>
+          <div class="terminal-tabs">
+            <button class="terminal-tab active" data-tab="main">Terminal Principal</button>
+            <button class="terminal-tab" data-tab="secondary" style="display: none;">Terminal 2</button>
+          </div>
+          <div class="terminal-body">
+            <div class="loading-spinner" id="loadingSpinner">
+              <i class="fas fa-spinner spinner-icon"></i>
+              <div class="mt-2">Executando ferramenta...</div>
+            </div>
+            <div class="terminal-output" id="terminalOutput">
+              <div class="prompt-line">
+                <span class="prompt-prefix">[root@zenox ~]$</span>
+                <span>Bem-vindo ao Zenox v5.0 - Advanced Cybersecurity Suite</span>
+              </div>
+              <div class="prompt-line">
+                <span class="prompt-prefix">[root@zenox ~]$</span>
+                <span>Sistema inicializado com sucesso. Selecione uma ferramenta para começar.</span>
+              </div>
+              <div class="prompt-line">
+                <span class="prompt-prefix">[root@zenox ~]$</span>
+                <span>Digite 'help' para ver comandos disponíveis ou use a barra de pesquisa.</span>
+              </div>
+              <div class="prompt-line">
+                <span class="prompt-prefix">[root@zenox ~]$</span>
+                <span class="cursor"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool Info Modal -->
+  <div class="tool-info-modal" id="toolInfoModal">
+    <div class="tool-info-content">
+      <div class="tool-info-header">
+        <h3 class="tool-info-title" id="toolInfoTitle">Informações da Ferramenta</h3>
+        <button class="tool-info-close" id="toolInfoClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="toolInfoBody">
+        <!-- Conteúdo será preenchido dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- History Panel -->
+  <div class="history-panel" id="historyPanel">
+    <div class="history-header">
+      <h3 class="history-title">
+        <i class="fas fa-history me-2"></i>
+        Histórico de Comandos
+      </h3>
+      <button class="header-btn" id="clearHistoryBtn" title="Limpar Histórico">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+    <div class="history-list" id="historyList">
+      <!-- Histórico será preenchido dinamicamente -->
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Advanced Features Script -->
+  <script src="zenox_advanced_features.js"></script>
+  
+  <script>
+    // Inicialização da aplicação
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeZenox();
+    });
+
+    function initializeZenox() {
+      // DOM Elements
+      const toolSearch = document.getElementById('toolSearch');
+      const searchSuggestions = document.getElementById('searchSuggestions');
+      const terminalOutput = document.getElementById('terminalOutput');
+      const terminalTitle = document.getElementById('terminalTitle');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const toolItems = document.querySelectorAll('.tool-item');
+      const favoriteButtons = document.querySelectorAll('.tool-favorite');
+      const infoButtons = document.querySelectorAll('.tool-info');
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const historyBtn = document.getElementById('historyBtn');
+      const historyPanel = document.getElementById('historyPanel');
+      const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+      const toolInfoModal = document.getElementById('toolInfoModal');
+      const toolInfoClose = document.getElementById('toolInfoClose');
+
+      // Inicializar favoritos visuais
+      updateFavoritesDisplay();
+
+      // Search functionality with suggestions
+      toolSearch.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        // Filtrar ferramentas
+        filterTools(searchTerm);
+        
+        // Mostrar sugestões
+        showSearchSuggestions(searchTerm);
+      });
+
+      // Ocultar sugestões quando clicar fora
+      document.addEventListener('click', function(e) {
+        if (!searchSuggestions.contains(e.target) && e.target !== toolSearch) {
+          searchSuggestions.style.display = 'none';
+        }
+      });
+
+      // Tool selection functionality
+      toolItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+          // Evitar execução se clicou em ações
+          if (e.target.closest('.tool-actions')) return;
+          
+          const toolName = this.getAttribute('data-tool');
+          const toolInfo = window.ZenoxSystems.tools[toolName];
+          
+          // Remove active class from all items
+          toolItems.forEach(i => i.classList.remove('active'));
+          
+          // Add active class to clicked item
+          this.classList.add('active');
+          
+          // Executar ferramenta
+          executeTool(toolName, toolInfo);
+        });
+      });
+
+      // Favorite functionality
+      favoriteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const toolItem = this.closest('.tool-item');
+          const toolName = toolItem.getAttribute('data-tool');
+          
+          const isFavorite = window.ZenoxSystems.favorites.toggle(toolName);
+          updateFavoriteButton(this, isFavorite);
+          updateToolItemFavorite(toolItem, isFavorite);
+          
+          // Mostrar notificação
+          const message = isFavorite ? 
+            `${toolName} adicionado aos favoritos` : 
+            `${toolName} removido dos favoritos`;
+          window.ZenoxSystems.notifications.show(message, 'success', 3000);
+        });
+      });
+
+      // Info functionality
+      infoButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const toolItem = this.closest('.tool-item');
+          const toolName = toolItem.getAttribute('data-tool');
+          showToolInfo(toolName);
+        });
+      });
+
+      // Filter functionality
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          applyFilter(filter);
+        });
+      });
+
+      // History panel
+      historyBtn.addEventListener('click', function() {
+        historyPanel.classList.toggle('open');
+        updateHistoryDisplay();
+      });
+
+      clearHistoryBtn.addEventListener('click', function() {
+        window.ZenoxSystems.history.clear();
+        updateHistoryDisplay();
+        window.ZenoxSystems.notifications.show('Histórico limpo', 'info', 3000);
+      });
+
+      // Close history panel when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!historyPanel.contains(e.target) && e.target !== historyBtn) {
+          historyPanel.classList.remove('open');
+        }
+      });
+
+      // Tool info modal
+      toolInfoClose.addEventListener('click', function() {
+        toolInfoModal.style.display = 'none';
+      });
+
+      toolInfoModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.style.display = 'none';
+        }
+      });
+
+      // Terminal controls
+      document.querySelector('.btn-maximize').addEventListener('click', function() {
+        const terminal = document.querySelector('.terminal-container');
+        if (terminal.style.position === 'fixed') {
+          // Exit fullscreen
+          terminal.style.position = '';
+          terminal.style.top = '';
+          terminal.style.left = '';
+          terminal.style.width = '';
+          terminal.style.height = '';
+          terminal.style.zIndex = '';
+          terminal.style.borderRadius = '15px';
+        } else {
+          // Enter fullscreen
+          terminal.style.position = 'fixed';
+          terminal.style.top = '0';
+          terminal.style.left = '0';
+          terminal.style.width = '100vw';
+          terminal.style.height = '100vh';
+          terminal.style.zIndex = '9999';
+          terminal.style.borderRadius = '0';
+        }
+      });
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', function(e) {
+        // Ctrl+H para histórico
+        if (e.ctrlKey && e.key === 'h') {
+          e.preventDefault();
+          historyBtn.click();
+        }
+        
+        // Escape para fechar painéis
+        if (e.key === 'Escape') {
+          historyPanel.classList.remove('open');
+          toolInfoModal.style.display = 'none';
+        }
+        
+        // Ctrl+F para focar na pesquisa
+        if (e.ctrlKey && e.key === 'f') {
+          e.preventDefault();
+          toolSearch.focus();
+        }
+      });
+
+      // Inicializar animações
+      initializeAnimations();
+      
+      // Inicializar sistema de stats dinâmicos
+      initializeSystemStats();
+      
+      // Mostrar notificação de boas-vindas
+      setTimeout(() => {
+        window.ZenoxSystems.notifications.show(
+          'Bem-vindo ao Zenox v5.0! Sistema inicializado com sucesso.', 
+          'success', 
+          5000
+        );
+      }, 1000);
+    }
+
+    function filterTools(searchTerm) {
+      const toolItems = document.querySelectorAll('.tool-item');
+      
+      toolItems.forEach(item => {
+        const toolName = item.querySelector('.tool-name').textContent.toLowerCase();
+        const toolData = item.getAttribute('data-tool');
+        
+        if (toolName.includes(searchTerm) || toolData.includes(searchTerm)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    function showSearchSuggestions(searchTerm) {
+      const suggestions = document.getElementById('searchSuggestions');
+      
+      if (searchTerm.length < 2) {
+        suggestions.style.display = 'none';
+        return;
+      }
+
+      const allTools = Object.keys(window.ZenoxSystems.tools);
+      const matches = allTools.filter(tool => 
+        tool.toLowerCase().includes(searchTerm) ||
+        window.ZenoxSystems.tools[tool].name.toLowerCase().includes(searchTerm)
+      ).slice(0, 5);
+
+      if (matches.length === 0) {
+        suggestions.style.display = 'none';
+        return;
+      }
+
+      suggestions.innerHTML = matches.map(tool => {
+        const toolInfo = window.ZenoxSystems.tools[tool];
+        return `
+          <div class="suggestion-item" data-tool="${tool}">
+            <strong>${toolInfo.name}</strong>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">${toolInfo.description}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Adicionar eventos de clique nas sugestões
+      suggestions.querySelectorAll('.suggestion-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const toolName = this.getAttribute('data-tool');
+          document.getElementById('toolSearch').value = window.ZenoxSystems.tools[toolName].name;
+          suggestions.style.display = 'none';
+          
+          // Executar ferramenta
+          const toolInfo = window.ZenoxSystems.tools[toolName];
+          executeTool(toolName, toolInfo);
+        });
+      });
+
+      suggestions.style.display = 'block';
+    }
+
+    function executeTool(toolName, toolInfo) {
+      const terminalOutput = document.getElementById('terminalOutput');
+      const terminalTitle = document.getElementById('terminalTitle');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      
+      // Update terminal title
+      terminalTitle.innerHTML = `<i class="fas fa-terminal me-2"></i>${toolInfo ? toolInfo.name : toolName.toUpperCase()}`;
+      
+      // Show loading spinner
+      loadingSpinner.style.display = 'block';
+      terminalOutput.style.display = 'none';
+      
+      // Adicionar ao histórico
+      const command = toolInfo ? toolInfo.usage : toolName;
+      window.ZenoxSystems.history.add(command);
+      
+      // Simulate tool execution
+      setTimeout(() => {
+        loadingSpinner.style.display = 'none';
+        terminalOutput.style.display = 'block';
+        
+        if (toolInfo) {
+          terminalOutput.innerHTML = `
+            <div class="prompt-line">
+              <span class="prompt-prefix">[root@zenox ~]$</span>
+              <span>${toolInfo.usage}</span>
+            </div>
+            <div style="color: var(--primary-green); white-space: pre-line; margin: 1rem 0;">${toolInfo.output}</div>
+            <div class="prompt-line">
+              <span class="prompt-prefix">[root@zenox ~]$</span>
+              <span class="cursor"></span>
+            </div>
+          `;
+        } else {
+          terminalOutput.innerHTML = `
+            <div class="prompt-line">
+              <span class="prompt-prefix">[root@zenox ~]$</span>
+              <span>${toolName}</span>
+            </div>
+            <div style="color: var(--accent-orange); margin: 1rem 0;">
+              Ferramenta ${toolName} não implementada ainda.
+              Esta é uma simulação do Zenox v5.0.
+              Use 'help ${toolName}' para mais informações.
+            </div>
+            <div class="prompt-line">
+              <span class="prompt-prefix">[root@zenox ~]$</span>
+              <span class="cursor"></span>
+            </div>
+          `;
+        }
+        
+        // Scroll to bottom
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        
+        // Mostrar notificação de sucesso
+        window.ZenoxSystems.notifications.show(
+          `Ferramenta ${toolInfo ? toolInfo.name : toolName} executada com sucesso`, 
+          'success', 
+          3000
+        );
+      }, Math.random() * 2000 + 1000);
+    }
+
+    function updateFavoritesDisplay() {
+      const toolItems = document.querySelectorAll('.tool-item');
+      
+      toolItems.forEach(item => {
+        const toolName = item.getAttribute('data-tool');
+        const favoriteBtn = item.querySelector('.tool-favorite');
+        const isFavorite = window.ZenoxSystems.favorites.isFavorite(toolName);
+        
+        updateFavoriteButton(favoriteBtn, isFavorite);
+        updateToolItemFavorite(item, isFavorite);
+      });
+    }
+
+    function updateFavoriteButton(button, isFavorite) {
+      if (isFavorite) {
+        button.classList.add('active');
+        button.style.color = 'var(--accent-orange)';
+        button.style.textShadow = 'var(--shadow-orange)';
+      } else {
+        button.classList.remove('active');
+        button.style.color = '';
+        button.style.textShadow = '';
+      }
+    }
+
+    function updateToolItemFavorite(item, isFavorite) {
+      if (isFavorite) {
+        item.classList.add('favorite');
+      } else {
+        item.classList.remove('favorite');
+      }
+    }
+
+    function applyFilter(filter) {
+      const toolItems = document.querySelectorAll('.tool-item');
+      
+      toolItems.forEach(item => {
+        const toolName = item.getAttribute('data-tool');
+        
+        if (filter === 'all') {
+          item.style.display = 'flex';
+        } else if (filter === 'favorites') {
+          const isFavorite = window.ZenoxSystems.favorites.isFavorite(toolName);
+          item.style.display = isFavorite ? 'flex' : 'none';
+        }
+      });
+    }
+
+    function showToolInfo(toolName) {
+      const toolInfo = window.ZenoxSystems.tools[toolName];
+      const modal = document.getElementById('toolInfoModal');
+      const title = document.getElementById('toolInfoTitle');
+      const body = document.getElementById('toolInfoBody');
+      
+      if (!toolInfo) {
+        window.ZenoxSystems.notifications.show('Informações não disponíveis para esta ferramenta', 'warning', 3000);
+        return;
+      }
+      
+      title.textContent = toolInfo.name;
+      
+      body.innerHTML = `
+        <div class="tool-info-section">
+          <h4>Descrição</h4>
+          <p>${toolInfo.description}</p>
+        </div>
+        
+        <div class="tool-info-section">
+          <h4>Uso Básico</h4>
+          <p><code style="background: var(--bg-dark); padding: 0.5rem; border-radius: 4px; color: var(--primary-green);">${toolInfo.usage}</code></p>
+        </div>
+        
+        ${toolInfo.documentation ? `
+        <div class="tool-info-section">
+          <h4>Documentação</h4>
+          <p>${toolInfo.documentation}</p>
+        </div>
+        ` : ''}
+        
+        ${toolInfo.parameters ? `
+        <div class="tool-info-section">
+          <h4>Parâmetros Principais</h4>
+          <ul class="parameter-list">
+            ${toolInfo.parameters.map(param => `
+              <li class="parameter-item">
+                <div class="parameter-name">${param.name}</div>
+                <div class="parameter-desc">${param.description}</div>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+        ` : ''}
+        
+        <div class="tool-info-section">
+          <h4>Categoria</h4>
+          <p><span style="color: var(--primary-cyan); font-weight: bold;">${toolInfo.category}</span></p>
+        </div>
+      `;
+      
+      modal.style.display = 'flex';
+    }
+
+    function updateHistoryDisplay() {
+      const historyList = document.getElementById('historyList');
+      const history = window.ZenoxSystems.history.getAll();
+      
+      if (history.length === 0) {
+        historyList.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 2rem;">Nenhum comando no histórico</div>';
+        return;
+      }
+      
+      historyList.innerHTML = history.map((command, index) => `
+        <div class="history-item" data-command="${command}">
+          <div class="history-command">${command}</div>
+          <div class="history-time">Comando #${history.length - index}</div>
+        </div>
+      `).join('');
+      
+      // Adicionar eventos de clique
+      historyList.querySelectorAll('.history-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const command = this.getAttribute('data-command');
+          document.getElementById('toolSearch').value = command;
+          document.getElementById('historyPanel').classList.remove('open');
+          
+          // Tentar executar o comando
+          const toolName = command.split(' ')[0];
+          const toolInfo = window.ZenoxSystems.tools[toolName];
+          if (toolInfo) {
+            executeTool(toolName, toolInfo);
+          }
+        });
+      });
+    }
+
+    function initializeAnimations() {
+      // Add fade-in animation to elements
+      const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+      elements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.1}s`;
+      });
+    }
+
+    function initializeSystemStats() {
+      // Update system stats randomly
+      setInterval(() => {
+        const cpuElement = document.getElementById('cpuUsage');
+        const ramElement = document.getElementById('ramUsage');
+        
+        if (cpuElement && ramElement) {
+          const cpu = Math.floor(Math.random() * 30) + 15;
+          const ram = Math.floor(Math.random() * 40) + 30;
+          
+          cpuElement.textContent = `CPU: ${cpu}%`;
+          ramElement.textContent = `RAM: ${ram}%`;
+        }
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
+
